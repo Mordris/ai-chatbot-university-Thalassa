@@ -1,0 +1,41 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Node modules and dependency management
+/node_modules/
+.pnp/
+.pnp.js
+
+# Testing and coverage reports
+/coverage/
+
+# Build output for React production
+/build/
+
+# Environment variables (local development and production)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# Logs and debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+nohup.out
+
+# Python virtual environments and cached files
+.venv/
+venv/
+__pycache__/
+
+# FAISS and other data-related files
+data/
+extracted_texts/
+
+# Miscellaneous files to ignore
+package-lock.json
+readme.md
