@@ -1,8 +1,8 @@
+requests
 fastapi
 uvicorn
+sentence-transformers
 faiss-cpu
 numpy
-sentence-transformers
 python-dotenv
-requests
-pymupdf
+langdetect

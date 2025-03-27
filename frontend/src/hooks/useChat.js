@@ -1,38 +1,40 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
+import debounce from "lodash.debounce";
 
 const useChat = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const sendMessage = async (message) => {
-    // Add user message to the chat
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: message, from: "user" },
-    ]);
-    setIsLoading(true);
+  const sendMessage = useCallback(
+    debounce(async (message) => {
+      setMessages((prev) => [...prev, { text: message, from: "user" }]);
+      setIsLoading(true);
 
-    try {
-      // Make sure you're calling the correct backend URL (http://localhost:8000)
-      const response = await axios.get("http://localhost:8000/chat", {
-        params: { query: message },
-      });
+      try {
+        const response = await axios.get("http://localhost:8000/chat", {
+          params: { query: message },
+        });
 
-      // Add the bot's response to the chat
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: response.data.answer, from: "bot" }, // Bot response
-      ]);
-    } catch (error) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: "Sorry, something went wrong.", from: "bot" },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            { text: response.data.answer, from: "bot" },
+          ]);
+          setIsLoading(false);
+        }, 1000);
+      } catch (error) {
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            { text: "Sorry, something went wrong.", from: "bot" },
+          ]);
+          setIsLoading(false);
+        }, 1000);
+      }
+    }, 500), // 500ms debounce
+    [] // Empty dependency array ensures it's only created once
+  );
 
   return { messages, sendMessage, isLoading };
 };

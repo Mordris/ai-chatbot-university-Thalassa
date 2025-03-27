@@ -1,3 +1,4 @@
+
 # Chatbot Project
 
 This project consists of a **React frontend** and a **FastAPI backend**. The React frontend is responsible for handling the user interface (UI), while the FastAPI backend handles API requests, manages a FAISS search index, and generates AI-powered responses using the Mistral-7B model.
@@ -8,21 +9,25 @@ This project consists of a **React frontend** and a **FastAPI backend**. The Rea
 
 - **`public/`**: Contains static assets like favicons and logos.
   - `favicon.ico`: Favicon for the app.
+  
 - **`src/`**: Source code for the React app.
-
   - **`components/`**: Reusable UI components.
     - `ChatWindow.jsx`: Main chat UI.
     - `Message.jsx`: Individual chat messages (user/bot).
     - `TypingIndicator.jsx`: Displays "Writing..." animation.
     - `Header.jsx`: App header.
     - `WelcomeModal.jsx`: Initial user warning modal.
+    
   - **`hooks/`**: Custom React hooks.
     - `useChat.js`: Manages chat logic, state, and API calls.
+    
   - **`styles/`**: Styling for the app.
     - `global.css`: Global styles.
     - `theme.js`: Custom theme file (e.g., colors, fonts).
+    
   - **`utils/`**: Utility functions.
     - `api.js`: API request functions for backend communication.
+    
   - **`App.jsx`**: Main entry point for the app.
   - **`index.js`**: Renders the React app.
 
@@ -33,7 +38,6 @@ This project consists of a **React frontend** and a **FastAPI backend**. The Rea
 ### Backend (FastAPI)
 
 - **`app/`**: Backend logic for FastAPI server.
-
   - `main.py`: FastAPI server file with API route definitions.
   - `faiss_search.py`: FAISS search utility for efficient document retrieval.
   - `ai_response.py`: Mistral-7B AI response generator.
@@ -41,7 +45,6 @@ This project consists of a **React frontend** and a **FastAPI backend**. The Rea
   - `requirements.txt`: Python dependencies for the backend.
 
 - **`data/`**: Data used for the backend.
-
   - `faiss_index.bin`: FAISS index file for fast search.
   - `metadata.npy`: Metadata for indexed chunks.
 
@@ -56,19 +59,16 @@ This project consists of a **React frontend** and a **FastAPI backend**. The Rea
 ### Frontend Setup
 
 1. Navigate to the `frontend` directory:
-
    ```bash
    cd frontend
    ```
 
 2. Install the required dependencies:
-
    ```bash
    npm install
    ```
 
 3. Start the development server:
-
    ```bash
    npm start
    ```
@@ -78,26 +78,22 @@ This project consists of a **React frontend** and a **FastAPI backend**. The Rea
 ### Backend Setup
 
 1. Navigate to the `backend` directory:
-
    ```bash
    cd backend
    ```
 
 2. Create and activate a virtual environment:
-
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows, use venv\Scriptsctivate
    ```
 
 3. Install the required Python dependencies:
-
    ```bash
    pip install -r requirements.txt
    ```
 
 4. Start the FastAPI server:
-
    ```bash
    uvicorn app.main:app --reload
    ```
