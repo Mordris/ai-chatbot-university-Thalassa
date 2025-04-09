@@ -116,6 +116,3 @@ AI_API_KEY=your_ai_api_key
 3. Interact with the chatbot UI, which will send requests to the FastAPI backend.
 4. The backend uses FAISS to search for relevant information and the Mistral-7B model to generate AI responses.
 
-## License
-
-This project is licensed under the MIT License.
