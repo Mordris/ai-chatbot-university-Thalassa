@@ -1,32 +1,39 @@
+// In Header.js
 import React from "react";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material"; // Use Box for layout
 
 const Header = () => (
-  <div
-    style={{
-      padding: "20px",
-      backgroundColor: "#00377B",
+  <Box // Use Box instead of div
+    sx={{
+      // Use sx prop
+      padding: 3, // Use theme spacing units (default 8px)
+      backgroundColor: "primary.dark", // Use theme colors (adjust if needed)
       textAlign: "center",
-      borderRadius: "10px",
+      borderRadius: 2, // Use theme border radius units
+      mb: 2, // Add margin bottom
     }}
   >
-    {/* Add the image here */}
-    <img
-      src="/thalassa.png" // This path is relative to the public folder
+    <Box // Nested Box for the image
+      component="img"
+      src="/thalassa.png"
       alt="Thalassa AI"
-      style={{
-        width: "100px", // Adjust size as needed
+      sx={{
+        width: 100,
         height: "auto",
-        marginBottom: "15px", // Space between the image and the title
+        mb: 2,
       }}
     />
-    <Typography variant="h4" style={{ color: "#fff" }}>
+    <Typography variant="h4" sx={{ color: "#fff", fontWeight: "bold" }}>
+      {" "}
+      {/* Add fontWeight */}
       Thalassa
     </Typography>
-    <Typography variant="h5" style={{ color: "#fff" }}>
+    <Typography variant="h6" sx={{ color: "#fff" }}>
+      {" "}
+      {/* Maybe h6 is better */}
       Sakarya University AI Assistant
     </Typography>
-  </div>
+  </Box>
 );
 
 export default Header;

@@ -1,8 +1,9 @@
-requests
 fastapi
-uvicorn
-sentence-transformers
-faiss-cpu
-numpy
+uvicorn[standard]
 python-dotenv
-langdetect
+openai>=1.0
+sentence-transformers
+faiss-cpu # Or faiss-gpu if you have CUDA configured
+numpy
+requests # Add back
+langdetect # Add back
