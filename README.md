@@ -148,11 +148,10 @@ This version works directly with Turkish source documents and utilizes specializ
 
 3.  **Interact:** Open your web browser and navigate to `http://localhost:3000` (or the port specified by the React server).
 
-## Scripts (Likely located in `backend/` or root)
+## Scripts
 
 - **`run.sh`:** Activates venv and starts the FastAPI backend server.
 - **`reload.sh`:** Deletes old index/metadata, merges texts in `TEXT_FOLDER`, and builds a new FAISS index using the `EMBEDDING_MODEL`. Run after changing text files or `EMBEDDING_MODEL`.
-- **`translate_files.py`:** (Optional Utility) Script to translate files using MyMemory API. Not part of the core runtime for this multilingual setup; useful only if switching to an English-context approach.
 
 ## Configuration (`.env` file - location depends on script execution path)
 
