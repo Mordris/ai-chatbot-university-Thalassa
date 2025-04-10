@@ -1,8 +1,9 @@
 # Thalassa - Sakarya University AI Assistant (OpenAI version)
 
-Thalassa is an advanced AI-powered chatbot designed to assist Sakarya University students. It uses a **Turkish data store** and leverages Retrieval-Augmented Generation (RAG) with the **OpenAI API**. The system employs **multilingual models** for embedding and context re-ranking, conversational memory, and date awareness to provide accurate, contextually relevant, and natural-sounding responses in the user's language (Turkish/English).
+Thalassa is an AI-powered chatbot designed to assist Sakarya University students. It uses a **Turkish data store** and leverages Retrieval-Augmented Generation (RAG) with the **OpenAI API**. The system employs **multilingual models** for embedding and context re-ranking, conversational memory, and date awareness to provide accurate, contextually relevant, and natural-sounding responses in the user's language (Turkish/English).
 
-screenshots
+## Screenshots
+
 ![](./screenshots/Screenshot1.png)
 ![](./screenshots/Screenshot2.png)
 
@@ -27,11 +28,11 @@ This version works directly with Turkish source documents and utilizes specializ
 
 - **Works with Turkish Source Data:** Directly indexes and retrieves from Turkish documents.
 - **Multilingual RAG Components:** Uses multilingual embedding and cross-encoder models for better cross-lingual understanding.
-- **State-of-the-Art LLM:** Leverages OpenAI models via API.
+- **Leverages OpenAI Models:** Uses models like GPT-3.5 Turbo or GPT-4 via API for generation.
 - **Conversational Memory:** Remembers recent interactions per session using session IDs.
 - **Date Awareness:** Prioritizes upcoming dates and handles past dates intelligently.
 - **Accurate Language Handling:** Understands Turkish/English queries, responds in the user's original language.
-- **Few-Shot Prompting:** Guides LLM behavior with examples for complex tasks like date logic and name recall.
+- **Few-Shot Prompting:** Guides LLM behavior with examples for complex tasks.
 - **User-Friendly Interface:** React-based chat interface with MUI components.
 - **Asynchronous Backend:** Efficient request handling with FastAPI.
 
@@ -40,11 +41,11 @@ This version works directly with Turkish source documents and utilizes specializ
 - **Backend:**
   - Python 3.x
   - FastAPI
-  - **OpenAI Python Library**
-  - **Sentence Transformers** (for embedding & cross-encoder models)
+  - OpenAI Python Library
+  - Sentence Transformers (for embedding & cross-encoder models)
   - FAISS (CPU/GPU)
-  - **Langdetect**
-  - **Requests** (for MyMemory API)
+  - Langdetect
+  - Requests (for MyMemory API)
   - Numpy
   - Uvicorn
   - python-dotenv
@@ -62,61 +63,6 @@ This version works directly with Turkish source documents and utilizes specializ
 - **Vector Store:** FAISS
 - **Translation Service (Query):** MyMemory API
 
-## Project Structure (Based on Image)
-
-.
-├── backend/
-│ ├── app/
-│ │ ├── init.py
-│ │ ├── ai_response.py # Handles OpenAI calls, prompt construction
-│ │ ├── faiss_search.py # Handles FAISS search & cross-encoder re-ranking
-│ │ ├── main.py # FastAPI app, endpoints, history management
-│ │ └── translation.py # Language detection & query translation
-│ ├── data/
-│ │ ├── faiss_index.bin # FAISS index (built from Turkish embeddings)
-│ │ └── metadata.npy
-│ ├── extracted_texts/ # <<< Turkish source .txt files
-│ ├── utils/
-│ │ ├── init.py
-│ │ ├── create_faiss_index.py # Creates index using multilingual embedder on TEXT_FOLDER
-│ │ └── merge_txt_files.py # Merges files in TEXT_FOLDER
-│ └── venv/ # Python Virtual Environment
-│
-├── frontend/
-│ ├── node_modules/
-│ ├── public/
-│ │ ├── index.html
-│ │ ├── thalassa.ico
-│ │ └── thalassa.png
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── ChatWindow.jsx
-│ │ │ ├── Header.jsx
-│ │ │ ├── Message.jsx
-│ │ │ ├── TypingIndicator.jsx
-│ │ │ └── WelcomeModal.jsx
-│ │ ├── hooks/
-│ │ │ └── useChat.js # Handles chat state, API calls, session ID
-│ │ ├── styles/
-│ │ │ ├── global.css
-│ │ │ └── theme.js
-│ │ └── utils/ # (Seems unused based on App.jsx/useChat.js)
-│ │ └── api.js
-│ │ ├── App.jsx # Main application component
-│ │ └── index.js # React entry point
-│ ├── .gitignore
-│ ├── package-lock.json
-│ └── package.json
-│
-├── .env # API keys, model names, paths, RAG params
-├── .gitignore
-├── nohupt.out # Log file from nohup (if used)
-├── README.md # This file
-├── reload.sh # Rebuilds FAISS index from TEXT_FOLDER
-├── requirements.txt # Backend Python dependencies
-├── run.sh # Starts the backend server
-└── translate_files.py # Utility script for translating files (not part of runtime)
-
 ## Setup and Installation
 
 1.  **Clone Repository:**
@@ -126,7 +72,7 @@ This version works directly with Turkish source documents and utilizes specializ
     cd <repository-directory>/backend # Navigate to backend first
     ```
 
-2.  **Ensure Turkish Data:** Place your original Turkish `.txt` files in the `backend/extracted_texts/` directory.
+2.  **Ensure Turkish Data:** Place your original Turkish `.txt` files in the `backend/extracted_texts/` directory (or configure `TEXT_FOLDER` in `.env`).
 
 3.  **Get OpenAI API Key:** Obtain an API key from [https://openai.com/](https://openai.com/).
 
@@ -141,8 +87,7 @@ This version works directly with Turkish source documents and utilizes specializ
       ```bash
       pip install -r requirements.txt
       ```
-      _(This will install FastAPI, Uvicorn, OpenAI, Sentence Transformers, FAISS, etc.)_
-    - Create a `.env` file in the `backend/` directory (or project root if scripts expect it there - adjust paths in scripts if needed). Configure it:
+    - Create a `.env` file (likely in `backend/` or root, see Project Structure). Configure it:
 
       ```env
       OPENAI_API_KEY="your_openai_api_key_here"
@@ -163,14 +108,13 @@ This version works directly with Turkish source documents and utilizes specializ
 
     - **IMPORTANT:** Build the FAISS index from the Turkish data:
       ```bash
-      bash reload.sh
+      bash reload.sh # Run from the directory containing the script
       ```
-      _(This merges Turkish files, then runs `create_faiss_index.py` using the multilingual `EMBEDDING_MODEL`.)_
 
 5.  **Frontend Setup:**
     - Navigate to the frontend directory:
       ```bash
-      cd ../frontend # Go up one level from backend, then into frontend
+      cd ../frontend # Adjust path relative to where you ran backend setup
       ```
     - Install Node.js dependencies:
       ```bash
@@ -183,14 +127,13 @@ This version works directly with Turkish source documents and utilizes specializ
 
 1.  **Start Backend:**
 
-    - Navigate to the `backend/` directory.
+    - Navigate to the directory containing `run.sh` (likely `backend/`).
     - Activate virtual environment (`source venv/bin/activate`).
-    - Ensure `.env` is configured.
+    - Ensure `.env` is configured and accessible.
     - Run the backend server:
       ```bash
       bash run.sh
       ```
-      _(Starts FastAPI on http://localhost:8000 by default)_
 
 2.  **Start Frontend:**
 
@@ -203,34 +146,34 @@ This version works directly with Turkish source documents and utilizes specializ
       # yarn start
       ```
 
-3.  **Interact:** Open your web browser and navigate to `http://localhost:3000` (or the port specified by the React server). Chat with Thalassa!
+3.  **Interact:** Open your web browser and navigate to `http://localhost:3000` (or the port specified by the React server).
 
-## Scripts (Located in `backend/`)
+## Scripts (Likely located in `backend/` or root)
 
-- **`run.sh`:** Activates the Python virtual environment and starts the FastAPI backend server using Uvicorn with auto-reload.
-- **`reload.sh`:** Deletes existing FAISS index/metadata, merges `.txt` files in `TEXT_FOLDER` (Turkish), and runs `utils/create_faiss_index.py` to build a new FAISS index using the configured multilingual `EMBEDDING_MODEL`. **Run this script** whenever you modify the Turkish text files or change the `EMBEDDING_MODEL`.
-- **`translate_files.py`:** (Optional Utility) A separate script to translate files using the MyMemory API (useful if you wanted to switch to the English-context approach later). Not part of the core runtime for this multilingual setup.
+- **`run.sh`:** Activates venv and starts the FastAPI backend server.
+- **`reload.sh`:** Deletes old index/metadata, merges texts in `TEXT_FOLDER`, and builds a new FAISS index using the `EMBEDDING_MODEL`. Run after changing text files or `EMBEDDING_MODEL`.
+- **`translate_files.py`:** (Optional Utility) Script to translate files using MyMemory API. Not part of the core runtime for this multilingual setup; useful only if switching to an English-context approach.
 
-## Configuration (`backend/.env` file)
+## Configuration (`.env` file - location depends on script execution path)
 
-- `OPENAI_API_KEY`: **(Required)** Your secret API key from OpenAI.
-- `TEXT_FOLDER`: **(Required)** Path to the directory containing your **Turkish** source `.txt` files (default: `extracted_texts`).
-- `OPENAI_MODEL`: (Optional) OpenAI model identifier (default: "gpt-3.5-turbo").
-- `EMBEDDING_MODEL`: (Optional) Multilingual Sentence Transformer model for FAISS indexing and query embedding (default: "paraphrase-multilingual-mpnet-base-v2").
-- `CROSS_ENCODER_MODEL`: (Optional) **Multilingual** Cross-encoder model for re-ranking retrieved context (default: "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1").
-- `FAISS_RETRIEVAL_K`: (Optional) Number of initial candidates retrieved from FAISS (default: 10).
-- `FINAL_CONTEXT_K`: (Optional) Number of chunks sent to LLM after re-ranking (default: 4).
-- `MAX_HISTORY_TURNS`: (Optional) Number of user/assistant message pairs remembered per session (default: 3).
+- `OPENAI_API_KEY`: **(Required)** OpenAI API key.
+- `TEXT_FOLDER`: **(Required)** Path to **Turkish** source `.txt` files (default: `extracted_texts`).
+- `OPENAI_MODEL`: (Optional) OpenAI generation model (default: "gpt-3.5-turbo").
+- `EMBEDDING_MODEL`: (Optional) Multilingual Sentence Transformer for indexing (default: "paraphrase-multilingual-mpnet-base-v2").
+- `CROSS_ENCODER_MODEL`: (Optional) **Multilingual** Cross-encoder for re-ranking (default: "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1").
+- `FAISS_RETRIEVAL_K`: (Optional) Initial candidates from FAISS (default: 10).
+- `FINAL_CONTEXT_K`: (Optional) Chunks sent to LLM after re-ranking (default: 4).
+- `MAX_HISTORY_TURNS`: (Optional) Conversation history length (default: 3 pairs).
 
 ## Workflow Summary
 
-User Input (TR/EN) -> Frontend (`useChat`) -> Backend API (`/chat`) -> Detect Language -> Translate Query to EN (if needed) -> Search FAISS (TR Index) w/ EN Query Embedding -> Retrieve Initial TR Chunks -> Re-rank (EN Query, TR Chunks) w/ Multilingual Cross-Encoder -> Select Top TR Chunks -> Get History & Current Date -> Construct Prompt (w/ TR Context, Original Query, History, Date, Instructions) -> Call OpenAI API -> Get Response (in User's Language) -> Update History -> Send Response to Frontend -> Display
+User Input (TR/EN) -> Frontend -> Backend API -> Detect Lang -> Translate Query to EN -> Search FAISS (TR Index) w/ EN Embedding -> Retrieve TR Chunks -> Re-rank (EN Query, TR Chunks) w/ Multilingual Cross-Encoder -> Select Top TR Chunks -> Get History & Date -> Construct Prompt (TR Context, Original Query, History, Date) -> Call OpenAI -> Get Response (User's Lang) -> Update History -> Send Response to Frontend -> Display
 
 ## Limitations & Future Improvements
 
-- **Cross-Lingual RAG Performance:** While using multilingual models improves things, cross-lingual search/ranking might still occasionally be less precise than a fully monolingual pipeline.
-- **In-Memory History:** Conversation history is lost when the backend restarts. Replace the simple dictionary with a database (Redis, PostgreSQL, etc.) for production persistence.
-- **Translation API:** Query translation relies on MyMemory API, which has limits. Could be swapped for paid/other services if needed.
-- **Scalability:** The current setup is suitable for demos/light use. Production requires proper deployment strategies (multiple workers, containers, potentially a dedicated vector database).
-- **Context Window Limits:** Long conversations might exceed LLM token limits. Consider history summarization techniques.
-- **Framework Adoption:** For more complex RAG features or easier pipeline management, explore LangChain or LlamaIndex.
+- **Cross-Lingual RAG Performance:** May still be slightly less precise than fully monolingual RAG in some edge cases.
+- **In-Memory History:** Lost on server restart. Use a database (Redis, etc.) for persistence in production.
+- **Translation API Limits:** MyMemory has limits; consider alternatives for heavy use.
+- **Scalability:** Demo setup. Production needs proper deployment (workers, containers).
+- **Context Window Limits:** Very long conversations could exceed token limits. Consider history summarization.
+- **Framework Adoption:** Explore LangChain/LlamaIndex for managing more complex RAG pipelines.
